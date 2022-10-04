@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UserList</title>
+</head>
+<body>
+    <h2>User List</h2>
+    세션값 확인 : <p th:text="${session['sessionEmail']}"></p>
+
+    <table>
+        <tr>
+            <th>id</th>
+            <th>email</th>
+            <th>name</th>
+            <th>createDate</th>
+        </tr>
+        <tr th:each="user: ${userList}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.createdAt}"></td>
+        </tr>
+    </table>
+</body>
+</html>
