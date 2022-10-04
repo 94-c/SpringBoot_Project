@@ -2,14 +2,13 @@ package com.spring.blog.controller;
 
 import com.spring.blog.data.dto.UserDto;
 import com.spring.blog.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/loginProc")
-    public String login(@ModelAttribute UserDto dto, HttpSession session) {
+    public String login(@ModelAttribute UserDto dto, HttpSession session, HttpServletRequest request) {
         UserDto loginResult = userService.login(dto);
         if (loginResult != null) {
             session.setAttribute("sessionId", loginResult.getId());
@@ -45,6 +44,7 @@ public class UserController {
             session.setAttribute("sessionName", loginResult.getName());
             return "index";
         } else {
+            request.setAttribute("message", "아이디 및 비밀번호를 확인해주세요.");
             return "user/login";
         }
     }
@@ -56,6 +56,12 @@ public class UserController {
         return "user/list";
     }
 
+    @GetMapping("/{id}")
+    public String findById(@PathVariable Integer id, Model model) {
+        UserDto userDto = userService.findById(id);
+        model.addAttribute("user", userDto);
+        return "user/detail";
+    }
 
 
 }

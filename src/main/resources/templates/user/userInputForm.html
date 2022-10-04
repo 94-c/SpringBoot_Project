@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>회원 가입</h2>
-<form action="/user/createProc" method="post">
+<form th:action="@{/user/createProc}" method="post">
     이메일 : <input type="text" name="email"> <br>
     패스워드 : <input type="text" name="password"> <br>
     이름 : <input type="text" name="name"> <br>

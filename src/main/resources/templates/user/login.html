@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-
+    <h2>로그인 화면</h2>
+    <form th:action="@{/user/loginProc}" method="POST">
+        이메일 : <input type="text" name="email">
+        비밀번호 : <input type="text" name="password">
+        <input type="submit" value="로그인">
+    </form>
 </body>
 </html>
