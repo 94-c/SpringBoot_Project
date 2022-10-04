@@ -49,10 +49,10 @@ public class UserController {
         }
     }
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public String findAllUserList(Model model) {
         List<UserDto> userDtoList = userService.findAllUserList();
-        model.addAllAttributes("userList", userDtoList);
+        model.addAttribute("userList", userDtoList);
         return "user/list";
     }
 

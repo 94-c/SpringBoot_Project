@@ -13,6 +13,8 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import javax.transaction.Transactional;
 
+import java.util.stream.IntStream;
+
 import static org.assertj.core.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
@@ -23,8 +25,9 @@ public class UserServiceTest {
     private UserService userService;
 
 
-    public UserDto newUser() {
-        return new UserDto("123", "123", "123");
+    public UserDto newUser(int i) {
+        UserDto newUser = new UserDto("테스트용 계정"+i, "테스트용 패스워드"+i, "테스트용 이름"+i);
+        return newUser;
     }
 
     @Test
@@ -32,9 +35,9 @@ public class UserServiceTest {
     @Rollback(value = true)
     @DisplayName("회원가입 테스트")
     public void userJoinTest() {
-        Integer joinId = userService.join(newUser());
+        Integer joinId = userService.join(newUser(1));
         UserDto userDto = userService.findById(joinId);
-        assertThat(newUser().getEmail()).isEqualTo(userDto.getEmail());
+        assertThat(newUser(1).getEmail()).isEqualTo(userDto.getEmail());
     }
 
     @Test
@@ -75,5 +78,13 @@ public class UserServiceTest {
 
         assertThat(loginResult).isNotNull();
 
+    }
+
+    @Test
+    @DisplayName("회원 데이터 저장")
+    public void userSave() {
+        IntStream.rangeClosed(1, 20).forEach(i -> {
+            userService.join(newUser(i));
+        });
     }
 }

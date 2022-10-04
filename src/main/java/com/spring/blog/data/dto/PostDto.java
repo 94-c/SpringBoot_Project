@@ -2,12 +2,10 @@ package com.spring.blog.data.dto;
 
 import com.spring.blog.data.entity.Post;
 import com.spring.blog.data.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostDto {
