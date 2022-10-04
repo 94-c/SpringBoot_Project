@@ -1,7 +1,10 @@
 package com.spring.blog.data.dto;
 
 import com.spring.blog.data.entity.User;
+import com.spring.blog.util.Md5Util;
 import lombok.*;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -24,8 +27,9 @@ public class UserDto {
     public User toCreateEntity() {
         User user = new User();
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(Md5Util.md5(password));
         user.setName(name);
+        user.setCreatedAt(new Date());
         return user;
     }
 
@@ -33,8 +37,9 @@ public class UserDto {
     public User toEditEntity(User user) {
         user.setId(id);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(Md5Util.md5(password));
         user.setName(name);
+        user.setUpdatedAt(new Date());
         return user;
     }
 

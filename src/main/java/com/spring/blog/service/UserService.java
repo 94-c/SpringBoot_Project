@@ -3,6 +3,7 @@ package com.spring.blog.service;
 import com.spring.blog.data.dto.UserDto;
 import com.spring.blog.data.entity.User;
 import com.spring.blog.data.repository.UserRepository;
+import com.spring.blog.util.Md5Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findByEmail(dto.getEmail());
         if (optionalUser.isPresent()) {
             User loginUser = optionalUser.get();
-            if (loginUser.getPassword().equals(dto.getPassword())) {
+            if (loginUser.getPassword().equals(Md5Util.md5(dto.getPassword()))) {
                 return UserDto.toUserDto(loginUser);
             } else {
                 return null;
