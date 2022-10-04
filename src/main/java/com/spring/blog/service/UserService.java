@@ -64,4 +64,13 @@ public class UserService {
     public void delete(Integer id) {
         userRepository.deleteById(id);
     }
+
+    public String emailCheck(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
+            return "ok";
+        } else {
+            return "no";
+        }
+    }
 }

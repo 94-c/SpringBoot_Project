@@ -2,14 +2,43 @@
 <html lang="en">
 <head>
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 </head>
 <body>
 <h2>회원 가입</h2>
 <form th:action="@{/user/createProc}" method="post">
-    이메일 : <input type="text" name="email"> <br>
+    이메일 : <input type="text" name="email" id="email" onblur="emailDuplicate()"> <br>
+    <span id="email_dup_result"></span>
     패스워드 : <input type="text" name="password"> <br>
     이름 : <input type="text" name="name"> <br>
     <input type="submit" value="회원가입">
 </form>
 </body>
+<script th:inline="javascript">
+    const emailDuplicate = () => {
+        const email = document.getElementById("email").value();
+        const checkResult = document.getElementById("email_dup_result");
+        $.ajax({
+            type: "POST",
+            url: "/user/emailCheck",
+            dataType: "text",
+            data: {
+                'email': email
+            },
+            success: function (result) {
+                if (result == "ok") {
+                    checkResult.innerHTML = "사용 가능한 이메일입니다.";
+                    checkResult.style.color = "green";
+                } else {
+                    checkResult.innerHTML = "중복 되는 이메일입니다.";
+                    checkResult.style.color = "red";
+                }
+            },
+            error: function () {
+                alert("실패입니다.")
+            }
+        });
+    }
+</script>
 </html>

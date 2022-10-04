@@ -2,7 +2,6 @@ package com.spring.blog.controller;
 
 import com.spring.blog.data.dto.UserDto;
 import com.spring.blog.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,7 +76,7 @@ public class UserController {
         userService.delete(id);
         return "redirect:/user/";
     }
-    
+
     //TODO ResponseEntity 파악
     @DeleteMapping("/{id}")
     public ResponseEntity deleteAjax(@PathVariable Integer id) {
@@ -97,5 +96,12 @@ public class UserController {
     public String editProc(@ModelAttribute UserDto dto) {
         userService.editUser(dto);
         return "redirect:/user/";
+    }
+
+    //이메일 중복체크
+    @PostMapping("/emailCheck")
+    public @ResponseBody String emailCheck(@RequestParam String email) {
+        String result = userService.emailCheck(email);
+        return result;
     }
 }
