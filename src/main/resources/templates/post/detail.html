@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>글 수정</h2>
+<form th:action="@{/post/editProc}" method="post">
+    <input type="hidden" name="id" th:value="${post.id}">
+    제목 : <input type="text" name="title" th:value="${post.title}"> <br>
+    글쓴이 : <input type="text" name="name" th:value="${post.userId}" readonly> <br>
+    본문 : <input type="text" name="body" th:value="${post.body}"> <br>
+    <input type="submit" value="글 수정">
+</form>
+</body>
+</html>

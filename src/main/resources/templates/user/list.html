@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>UserList</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
 <h2>User List</h2>
@@ -25,8 +26,65 @@
         <td>
             <a th:href="@{|/user/${user.id}|}">조회</a>
         </td>
+        <td>
+            <button th:onclick="detail([[${user.id}]])">조회(ajax)</button>
+        </td>
+        <td>
+            <a th:href="@{|/user/delete/${user.id}|}">삭제</a>
+        </td>
+        <td>
+            <button th:onclick="deleteByUser([[${user.id}]])">삭제(ajax)</button>
+        </td>
     </tr>
     </tbody>
 </table>
+<div id="user-detail">
+
+</div>
 </body>
+<script th:inline="javascript">
+    const deleteByUser = (id) => {
+        $.ajax({
+            type: "DELETE",
+            url: "/user/"+id,
+            /*dataType: "text",*/
+            success: function (result) {
+                alert("회원 정보가 삭제 되었습니다.")
+                location.href = "/user/";
+            }, error: function () {
+                alert("회원 정보 삭제가 되지 않았습니다.")
+            }
+        });
+    }
+    const detail = (id) => {
+         $.ajax({
+             type: "POST",
+             url: "/user/ajax/"+id,
+             dataType: "json",
+             success: function (result) {
+                console.log(result);
+                let detailView = "<table>\n" +
+                    "    <thead>\n" +
+                    "    <tr>\n" +
+                    "        <th>번호</th>\n" +
+                    "        <th>이메일</th>\n" +
+                    "        <th>이름</th>\n" +
+                    "    </tr>\n" +
+                    "    </thead>\n" +
+                    "    <tbody>\n" +
+                    "    <tr>\n" +
+                    "        <td th:text='"+result.id+"'></td>\n" +
+                    "        <td th:text='"+result.email+"'></td>\n" +
+                    "        <td th:text='"+result.name+"'></td>\n" +
+                    "    </tr>\n" +
+                    "    </tbody>\n" +
+                    "</table>"
+                 document.getElementById("user-detail").innerHTML = detailView;
+             },
+             error: function () {
+                 alert("ajax 실패");
+             }
+         });
+    }
+</script>
 </html>

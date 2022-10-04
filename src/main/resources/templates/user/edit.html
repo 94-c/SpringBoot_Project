@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>사용자 수정</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</head>
+<body>
+<h2>사용자 정보 수정</h2>
+<form th:action="@{/user/editProc}" method="post" name="editUser">
+    <input type="hidden" name="id" th:value="${user.id}">
+    이메일 : <input type="text" name="email" th:value="${user.email}"> <br>
+    패스워드 : <input type="text" id="password" name="password"> <br>
+    이름 : <input type="text" name="name" th:value="${user.name}" readonly> <br>
+    <input type="button" th:onclick="edit()" value="수정">
+</form>
+</body>
+<script th:inline="javascript">
+    const edit = () => {
+        const password = [[${user.password}]];
+        const passwordConfirm = document.getElementById("password").value;
+        if (password == passwordConfirm) {
+            editUser.submit();
+        } else {
+            alert("비밀번호가 일치하지 않습니다.");
+        }
+    }
+</script>
+</html>

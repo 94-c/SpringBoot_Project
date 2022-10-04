@@ -25,7 +25,6 @@ public class UserService {
         return userDtoList;
     }
 
-
     public Integer join(UserDto dto) {
         User newUser = dto.toCreateEntity();
         return userRepository.save(newUser).getId();
@@ -53,5 +52,15 @@ public class UserService {
         } else {
             return null;
         }
+    }
+
+    public void editUser(UserDto dto) {
+        Optional<User> findById = userRepository.findById(dto.getId());
+        User editUser = dto.toEditEntity(findById.get());
+        userRepository.save(editUser).getId();
+    }
+
+    public void delete(Integer id) {
+        userRepository.deleteById(id);
     }
 }

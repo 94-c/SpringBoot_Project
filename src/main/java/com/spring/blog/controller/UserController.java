@@ -4,6 +4,8 @@ import com.spring.blog.data.dto.UserDto;
 import com.spring.blog.service.UserService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ public class UserController {
 
     @GetMapping("/join")
     public String joinForm() {
-        return "user/userInputForm";
+        return "user/join";
     }
 
     @PostMapping("/joinProc")
@@ -42,7 +44,7 @@ public class UserController {
             session.setAttribute("sessionId", loginResult.getId());
             session.setAttribute("sessionEmail", loginResult.getEmail());
             session.setAttribute("sessionName", loginResult.getName());
-            return "index";
+            return "user/myPage";
         } else {
             request.setAttribute("message", "아이디 및 비밀번호를 확인해주세요.");
             return "user/login";
@@ -63,5 +65,37 @@ public class UserController {
         return "user/detail";
     }
 
+    // ajax 상세조회
+    @PostMapping("/ajax/{id}")
+    public @ResponseBody UserDto findByIdAjax(@PathVariable Integer id) {
+        UserDto userDto = userService.findById(id);
+        return userDto;
+    }
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        userService.delete(id);
+        return "redirect:/user/";
+    }
+    
+    //TODO ResponseEntity 파악
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteAjax(@PathVariable Integer id) {
+        userService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK); // ajax 호출한 부분에 리턴으로 200 응답을 함
+    }
+
+    @GetMapping("/edit")
+    public String editForm(HttpSession session, Model model) {
+        Integer id = (Integer) session.getAttribute("sessionId");
+        UserDto dto = userService.findById(id);
+        model.addAttribute("user", dto);
+        return "user/edit";
+    }
+
+    @PostMapping("/editProc")
+    public String editProc(@ModelAttribute UserDto dto) {
+        userService.editUser(dto);
+        return "redirect:/user/";
+    }
 }

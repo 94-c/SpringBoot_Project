@@ -87,4 +87,15 @@ public class UserServiceTest {
             userService.join(newUser(i));
         });
     }
+
+    @Test
+    @DisplayName("회원 정보 삭제")
+    public void userDeleteTest() {
+        /**
+         * 신규 회원 등록 후 → 삭제 → 삭제 후 회원 정보 null 처리
+         */
+        Integer saveId = userService.join(newUser(999));
+        userService.delete(saveId);
+        assertThat(userService.findById(saveId)).isNull();
+    }
 }
