@@ -35,7 +35,6 @@ public class Comment {
     @Column(name = "parents_comment_id")
     private Integer parentsId;
 
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;

@@ -4,6 +4,9 @@ import com.spring.blog.data.entity.Post;
 import com.spring.blog.data.entity.User;
 import lombok.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,6 +16,7 @@ public class PostDto {
     private Integer userId;
     private String title;
     private String body;
+    private List<CommentDto> commentList;
 
     public PostDto(Integer userId, String title, String body) {
         this.userId = userId;
@@ -46,6 +50,7 @@ public class PostDto {
         return post;
     }
 
+    /* Entity -> Dto로 담아준다 */
     public static PostDto toPostDto(Post post) {
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());
@@ -55,6 +60,7 @@ public class PostDto {
 
         return postDto;
     }
+
 
 
 }

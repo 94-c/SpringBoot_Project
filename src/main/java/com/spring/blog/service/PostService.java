@@ -30,18 +30,23 @@ public class PostService {
         return postRepository.save(newPost);
     }
 
-    public PostDto findById(Integer id) {
+    public PostDto findByPost(Integer id) {
         Optional<Post> optionalPost = postRepository.findById(id);
         if (optionalPost.isPresent()) {
-            Post post =optionalPost.get();
+            Post post = optionalPost.get();
             return PostDto.toPostDto(post);
         }
         return null;
     }
 
-    public void editPost(PostDto dto) {
+    public Post editPost(PostDto dto) {
         Optional<Post> findById = postRepository.findById(dto.getId());
         Post editPost = dto.toEditEntity(findById.get());
-        postRepository.save(editPost).getId();
+        return postRepository.save(editPost);
+    }
+
+    public void deletePost(Integer id) {
+        Optional<Post> post = postRepository.findById(id);
+        postRepository.delete(post.get());
     }
 }

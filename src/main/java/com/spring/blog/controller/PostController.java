@@ -30,7 +30,7 @@ public class PostController {
 
     @GetMapping("/{id}")
     public String findById(@PathVariable Integer id, Model model) {
-        PostDto result = postService.findById(id);
+        PostDto result = postService.findByPost(id);
         model.addAttribute("post", result);
         return "post/detail";
     }

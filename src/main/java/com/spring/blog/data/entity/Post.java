@@ -41,10 +41,11 @@ public class Post {
     @Column(name = "deleted_at")
     private Date deletedAt;
 
-    /*@OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OrderBy("createdAt DESC")
     private List<Comment> commentList = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+   /* @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "post_tag",
             joinColumns = {@JoinColumn(name = "post_id", referencedColumnName = "id")},

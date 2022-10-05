@@ -17,6 +17,7 @@ public class UserDto {
     private String password;
     private String name;
 
+    //테스트 코드 작성
     public UserDto(String email, String password, String name) {
         this.email = email;
         this.password = password;

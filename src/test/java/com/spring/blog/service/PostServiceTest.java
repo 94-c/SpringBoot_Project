@@ -2,20 +2,16 @@ package com.spring.blog.service;
 
 import com.spring.blog.data.dto.PostDto;
 import com.spring.blog.data.entity.Post;
-import com.spring.blog.data.entity.User;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
+import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,20 +35,63 @@ public class PostServiceTest {
     @DisplayName("글 찾기 테스트")
     public void findByPostId() {
         Integer postId = 13;
-        PostDto findById = postService.findById(postId);
+        PostDto findById = postService.findByPost(postId);
 
-        assertNotNull(findById);
+        assertEquals(postId, findById.getId());
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = NullPointerException.class)
     @DisplayName("글 찾기 테스트")
     public void noFindByPostId() {
         Integer postId = 999;
-        PostDto findById = postService.findById(postId);
+        PostDto findById = postService.findByPost(postId);
 
-        assertNotNull(findById);
+        assertEquals(postId, findById.getId());
     }
 
+    @Test
+    @DisplayName("글 수정 테스트")
+    public void editPost() {
+        PostDto dto = new PostDto();
+        dto.setId(13);
+
+        PostDto findByPost = postService.findByPost(dto.getId());
+        findByPost.setTitle("글 수정 테스트");
+        findByPost.setBody("글 수정 테스트");
+
+        Post editPost = postService.editPost(findByPost);
+
+        assertEquals(findByPost.getId(), editPost.getId());
+        assertTrue(editPost.getId() > 0);
+    }
+
+    @Test
+    @DisplayName("글 수정 테스트")
+    public void noEditPost() {
+        PostDto dto = new PostDto();
+        dto.setId(99);
+
+        PostDto findByPost = postService.findByPost(dto.getId());
+        findByPost.setTitle("글 수정 테스트");
+        findByPost.setBody("글 수정 테스트");
+
+        Post editPost = postService.editPost(findByPost);
+
+        assertEquals(findByPost.getId(), editPost.getId());
+        assertTrue(editPost.getId() > 0);
+    }
+
+    @Test
+    @DisplayName("글 삭제 테스트")
+    public void deletePost() {
+        PostDto dto = new PostDto();
+        dto.setId(1);
+
+        PostDto findByPost = postService.findByPost(dto.getId());
+
+        postService.deletePost(findByPost.getId());
+
+    }
 
 
 }

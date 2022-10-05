@@ -59,7 +59,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String findById(@PathVariable Integer id, Model model) {
-        UserDto userDto = userService.findById(id);
+        UserDto userDto = userService.findByUser(id);
         model.addAttribute("user", userDto);
         return "user/detail";
     }
@@ -67,7 +67,7 @@ public class UserController {
     // ajax 상세조회
     @PostMapping("/ajax/{id}")
     public @ResponseBody UserDto findByIdAjax(@PathVariable Integer id) {
-        UserDto userDto = userService.findById(id);
+        UserDto userDto = userService.findByUser(id);
         return userDto;
     }
 
@@ -77,7 +77,6 @@ public class UserController {
         return "redirect:/user/";
     }
 
-    //TODO ResponseEntity 파악
     @DeleteMapping("/{id}")
     public ResponseEntity deleteAjax(@PathVariable Integer id) {
         userService.delete(id);
@@ -87,7 +86,7 @@ public class UserController {
     @GetMapping("/edit")
     public String editForm(HttpSession session, Model model) {
         Integer id = (Integer) session.getAttribute("sessionId");
-        UserDto dto = userService.findById(id);
+        UserDto dto = userService.findByUser(id);
         model.addAttribute("user", dto);
         return "user/edit";
     }

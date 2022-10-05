@@ -31,18 +31,14 @@ public class UserServiceTest {
     }
 
     @Test
-    @Transactional
-    @Rollback(value = true)
     @DisplayName("회원가입 테스트")
     public void userJoinTest() {
         Integer joinId = userService.join(newUser(1));
-        UserDto userDto = userService.findById(joinId);
+        UserDto userDto = userService.findByUser(joinId);
         assertThat(newUser(1).getEmail()).isEqualTo(userDto.getEmail());
     }
 
     @Test
-    @Transactional
-    @Rollback(value = true)
     @DisplayName("로그인")
     public void userLoginTest() {
         final String email = "123";
@@ -56,8 +52,6 @@ public class UserServiceTest {
     }
 
     @Test
-    @Transactional
-    @Rollback(value = true)
     @DisplayName("회원 가입 후 로그인 테스트")
     public void userJoinAfterLoginTest() {
         final String email = "aaa@aaa.com";
@@ -94,6 +88,6 @@ public class UserServiceTest {
          */
         Integer saveId = userService.join(newUser(999));
         userService.delete(saveId);
-        assertThat(userService.findById(saveId)).isNull();
+        assertThat(userService.findByUser(saveId)).isNull();
     }
 }
