@@ -55,8 +55,6 @@ public class UserServiceTest {
         assertThat(result).isNotNull();
     }
 
-
-
     @Test
     @Transactional
     @Rollback(value = true)

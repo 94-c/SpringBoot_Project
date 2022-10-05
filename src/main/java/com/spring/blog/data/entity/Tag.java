@@ -31,7 +31,4 @@ public class Tag {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @ManyToMany(mappedBy = "tags")
-    private List<Post> posts = new ArrayList<>();
-
 }

@@ -41,7 +41,7 @@ public class Post {
     @Column(name = "deleted_at")
     private Date deletedAt;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
+    /*@OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
     private List<Comment> commentList = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
@@ -53,7 +53,7 @@ public class Post {
     private List<Tag> tags = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
-    private List<Like> likeList = new ArrayList<>();
+    private List<Like> likeList = new ArrayList<>();*/
 
 
 }

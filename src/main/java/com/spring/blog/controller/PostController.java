@@ -3,7 +3,6 @@ package com.spring.blog.controller;
 import com.spring.blog.data.dto.PostDto;
 import com.spring.blog.data.dto.UserDto;
 import com.spring.blog.service.PostService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -25,9 +25,9 @@ public class PostService {
         return postDtoList;
     }
 
-    public Integer createPost(PostDto dto) {
+    public Post createPost(PostDto dto) {
         Post newPost = dto.toCreateEntity();
-        return postRepository.save(newPost).getId();
+        return postRepository.save(newPost);
     }
 
     public PostDto findById(Integer id) {

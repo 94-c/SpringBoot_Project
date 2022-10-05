@@ -67,7 +67,7 @@ public class UserService {
 
     public String emailCheck(String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isEmpty()) {
+        if (optionalUser.isPresent()) {
             return "ok";
         } else {
             return "no";
