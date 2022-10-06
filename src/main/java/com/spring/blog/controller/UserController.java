@@ -83,6 +83,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK); // ajax 호출한 부분에 리턴으로 200 응답을 함
     }
 
+
     @GetMapping("/edit")
     public String editForm(HttpSession session, Model model) {
         Integer id = (Integer) session.getAttribute("sessionId");
