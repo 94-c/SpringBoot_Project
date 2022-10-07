@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/post")
 public class PostController {
 
     private final PostService postService;
+
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
     @GetMapping("/create")
     public String createPost() {
@@ -35,20 +38,18 @@ public class PostController {
         return "post/detail";
     }
 
-    /*@GetMapping("/edit")
+    @GetMapping("/edit")
     public String editForm(HttpSession session, Model model) {
         Integer id = (Integer) session.getAttribute("sessionId");
-        PostDto dto = postService.findById(id);
+        PostDto dto = postService.findByPost(id);
         model.addAttribute("post", dto);
         return "post/detail";
-    }*/
+    }
 
     @PostMapping("/editProc")
     public String editProc(@ModelAttribute PostDto dto) {
         postService.editPost(dto);
         return "redirect:/";
     }
-
-
 
 }

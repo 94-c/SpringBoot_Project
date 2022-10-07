@@ -26,7 +26,7 @@ public class UserServiceTest {
 
 
     public UserDto newUser(int i) {
-        UserDto newUser = new UserDto("테스트용 계정"+i, "테스트용 패스워드"+i, "테스트용 이름"+i);
+        UserDto newUser = new UserDto("테스트용 계정"+i, "테스트용 패스워드"+i);
         return newUser;
     }
 
@@ -41,12 +41,10 @@ public class UserServiceTest {
     @Test
     @DisplayName("로그인")
     public void userLoginTest() {
-        final String email = "123";
-        final String password = "123";
-        final String name = "123";
-        UserDto loginResult = new UserDto(email, password, name);
+        UserDto dto = new UserDto();
+        dto.setEmail("테스트");
 
-        UserDto result = userService.login(loginResult);
+        UserDto result = userService.login(dto);
 
         assertThat(result).isNotNull();
     }
@@ -56,15 +54,13 @@ public class UserServiceTest {
     public void userJoinAfterLoginTest() {
         final String email = "aaa@aaa.com";
         final String password = "123123";
-        final String name = "테스트";
-        UserDto userDto = new UserDto(email, password, name);
+        UserDto userDto = new UserDto(email, password);
 
         Integer join = userService.join(userDto);
 
         UserDto loginUserDto = new UserDto();
         loginUserDto.setEmail(email);
         loginUserDto.setPassword(password);
-        loginUserDto.setName(name);
 
         UserDto loginResult = userService.login(loginUserDto);
 

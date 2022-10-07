@@ -33,13 +33,14 @@ public class UserService {
 
     public UserDto login(UserDto dto) {
         Optional<User> optionalUser = userRepository.findByEmail(dto.getEmail());
-        if (optionalUser.isPresent()) {
+        if (optionalUser.isEmpty()) {
             User loginUser = optionalUser.get();
             if (loginUser.getPassword().equals(Md5Util.md5(dto.getPassword()))) {
                 return UserDto.toUserDto(loginUser);
             } else {
                 return null;
             }
+
         } else {
             return null;
         }

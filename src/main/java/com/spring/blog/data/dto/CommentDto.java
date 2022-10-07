@@ -20,6 +20,7 @@ public class CommentDto {
     private String userIp;
     private Integer parentsId;
 
+    //테스트 코드 작성
     public CommentDto(Integer userId, Integer postId, String body, String userIp) {
         this.userId = userId;
         this.postId = postId;

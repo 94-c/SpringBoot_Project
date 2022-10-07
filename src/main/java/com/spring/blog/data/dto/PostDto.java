@@ -18,6 +18,7 @@ public class PostDto {
     private String body;
     private List<CommentDto> commentList;
 
+    //테스트 코드 작성
     public PostDto(Integer userId, String title, String body) {
         this.userId = userId;
         this.title = title;
