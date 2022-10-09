@@ -42,11 +42,11 @@ public class UserServiceTest {
     @DisplayName("로그인")
     public void userLoginTest() {
         UserDto dto = new UserDto();
-        dto.setEmail("테스트");
+        dto.setEmail("1111111");
 
         UserDto result = userService.login(dto);
 
-        assertThat(result).isNotNull();
+        assertThat(result.getEmail());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class UserServiceTest {
 
         UserDto loginResult = userService.login(loginUserDto);
 
-        assertThat(loginResult).isNotNull();
+        assertThat(loginResult.getEmail());
 
     }
 
