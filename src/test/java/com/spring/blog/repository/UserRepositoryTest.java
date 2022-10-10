@@ -50,11 +50,11 @@ public class UserRepositoryTest {
     @Test
     public void loginTest() {
         UserDto dto = new UserDto();
-        dto.setEmail("테스트");
+        dto.setEmail("aaa@aaa.com");
 
         Optional<User> optionalUser = userRepository.findByEmail(dto.getEmail());
 
-        assertTrue(optionalUser.isPresent());
+        assertThat(optionalUser.isPresent());
     }
 
     @Test

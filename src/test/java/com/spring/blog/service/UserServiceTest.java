@@ -1,6 +1,7 @@
 package com.spring.blog.service;
 
 import com.spring.blog.data.dto.UserDto;
+import com.spring.blog.util.Md5Util;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
@@ -40,7 +41,20 @@ public class UserServiceTest {
 
     @Test
     @DisplayName("로그인")
-    public void userLoginTest() {
+    public void userLoginTestSuccess() {
+        UserDto dto = new UserDto();
+        dto.setEmail("aaa@aaa.com");
+        dto.setPassword("123123");
+
+        UserDto result = userService.login(dto);
+
+        assertThat(result.getEmail());
+    }
+
+
+    @Test(expected = NullPointerException.class)
+    @DisplayName("로그인")
+    public void userLoginTestFail() {
         UserDto dto = new UserDto();
         dto.setEmail("1111111");
 
