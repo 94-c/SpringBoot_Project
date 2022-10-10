@@ -31,7 +31,7 @@ public class PostController {
         return "redirect:/";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/read/{id}")
     public String findById(@PathVariable Integer id, Model model) {
         PostDto result = postService.findByPost(id);
         model.addAttribute("post", result);

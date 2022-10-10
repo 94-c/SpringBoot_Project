@@ -5,11 +5,14 @@ import com.spring.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -45,7 +48,6 @@ public class UserController {
             session.setAttribute("sessionName", loginResult.getName());
             return "user/myPage";
         } else {
-            request.setAttribute("message", "아이디 및 비밀번호를 확인해주세요.");
             return "user/login";
         }
     }
@@ -103,5 +105,11 @@ public class UserController {
     public @ResponseBody String emailCheck(@RequestParam String email) {
         String result = userService.emailCheck(email);
         return result;
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+        return "redirect:/";
     }
 }
