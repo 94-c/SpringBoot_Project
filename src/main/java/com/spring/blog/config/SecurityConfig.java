@@ -21,6 +21,7 @@ public class SecurityConfig {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .logoutSuccessUrl("/logout")
                 .invalidateHttpSession(true);
+
         return http.build();
     }
 
