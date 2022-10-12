@@ -12,6 +12,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
 
     @Bean
+    protected void configure(HttpSecurity security) throws Exception {
+        security.httpBasic().disable();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
@@ -25,7 +30,8 @@ public class SecurityConfig {
                 .logout((logout) -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                         .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true));
+                        .invalidateHttpSession(true)
+                );
         return http.build();
     }
 
