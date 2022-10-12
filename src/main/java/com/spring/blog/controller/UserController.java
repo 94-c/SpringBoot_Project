@@ -46,7 +46,7 @@ public class UserController {
             session.setAttribute("sessionId", loginResult.getId());
             session.setAttribute("sessionEmail", loginResult.getEmail());
             session.setAttribute("sessionName", loginResult.getName());
-            return "user/myPage";
+            return "redirect:/";
         } else {
             return "user/login";
         }
