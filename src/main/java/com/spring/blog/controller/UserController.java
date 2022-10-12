@@ -3,6 +3,8 @@ package com.spring.blog.controller;
 import com.spring.blog.data.dto.UserDto;
 import com.spring.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +24,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final Logger logger = LogManager.getLogger(UserController.class);
 
     @GetMapping("/join")
     public String joinForm() {
@@ -42,14 +45,15 @@ public class UserController {
     @PostMapping("/loginProc")
     public String login(@ModelAttribute UserDto dto, HttpSession session, HttpServletRequest request) {
         UserDto loginResult = userService.login(dto);
-        if (loginResult != null) {
-            session.setAttribute("sessionId", loginResult.getId());
-            session.setAttribute("sessionEmail", loginResult.getEmail());
-            session.setAttribute("sessionName", loginResult.getName());
-            return "redirect:/";
-        } else {
+        if (loginResult == null) {
+            logger.warn("logError");
             return "user/login";
         }
+        session.setAttribute("sessionId", loginResult.getId());
+        session.setAttribute("sessionEmail", loginResult.getEmail());
+        session.setAttribute("sessionName", loginResult.getName());
+        return "redirect:/";
+
     }
 
     @GetMapping("/")
@@ -68,7 +72,8 @@ public class UserController {
 
     // ajax 상세조회
     @PostMapping("/ajax/{id}")
-    public @ResponseBody UserDto findByIdAjax(@PathVariable Integer id) {
+    public @ResponseBody
+    UserDto findByIdAjax(@PathVariable Integer id) {
         UserDto userDto = userService.findByUser(id);
         return userDto;
     }
@@ -102,7 +107,8 @@ public class UserController {
 
     //이메일 중복체크
     @PostMapping("/emailCheck")
-    public @ResponseBody String emailCheck(@RequestParam String email) {
+    public @ResponseBody
+    String emailCheck(@RequestParam String email) {
         String result = userService.emailCheck(email);
         return result;
     }
