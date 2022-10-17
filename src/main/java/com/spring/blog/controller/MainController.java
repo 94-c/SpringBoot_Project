@@ -20,4 +20,5 @@ public class MainController {
         model.addAttribute("postList", postDtoList);
         return "index";
     }
+
 }
