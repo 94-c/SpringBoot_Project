@@ -25,8 +25,8 @@ public class PostController {
         return "post/input";
     }
 
-    @PostMapping("/createProc")
-    public String createProc(@ModelAttribute PostDto dto) {
+    @PostMapping("/create")
+    public String createPost(@ModelAttribute PostDto dto) {
         postService.createPost(dto);
         return "redirect:/";
     }
@@ -39,15 +39,15 @@ public class PostController {
     }
 
     @GetMapping("/edit")
-    public String editForm(HttpSession session, Model model) {
+    public String editPost(HttpSession session, Model model) {
         Integer id = (Integer) session.getAttribute("sessionId");
         PostDto dto = postService.findByPost(id);
         model.addAttribute("post", dto);
         return "post/detail";
     }
 
-    @PostMapping("/editProc")
-    public String editProc(@ModelAttribute PostDto dto) {
+    @PostMapping("/edit")
+    public String editPost(@ModelAttribute PostDto dto) {
         postService.editPost(dto);
         return "redirect:/";
     }

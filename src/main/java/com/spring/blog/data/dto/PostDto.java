@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PostDto {
+
+    //TODO Dto와 Mapper 분리, 매퍼스트럭처 사용해서 클래스하고 비교
     private Integer id;
     private Integer userId;
     private String title;

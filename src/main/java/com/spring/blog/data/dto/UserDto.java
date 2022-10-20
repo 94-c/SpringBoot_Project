@@ -3,6 +3,7 @@ package com.spring.blog.data.dto;
 import com.spring.blog.data.entity.User;
 import com.spring.blog.util.Md5Util;
 import lombok.*;
+import org.hibernate.annotations.NotFound;
 
 import java.util.Date;
 
@@ -15,6 +16,7 @@ public class UserDto {
     private Integer id;
     private String email;
     private String password;
+
     private String name;
 
     //테스트 코드 작성

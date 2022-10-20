@@ -32,10 +32,12 @@ public class UserService {
     }
 
     public UserDto login(UserDto dto) {
+        //TODO orElse() 사용
         Optional<User> optionalUser = userRepository.findByEmail(dto.getEmail());
         if (optionalUser.isPresent()) {
             User loginUser = optionalUser.get();
             if (loginUser.getPassword().equals(Md5Util.md5(dto.getPassword()))) {
+                //TODO 매퍼 클래스 생성 및 메소드 명 수정
                 return UserDto.toUserDto(loginUser);
             } else {
                 return null;
@@ -56,21 +58,20 @@ public class UserService {
     }
 
     public void editUser(UserDto dto) {
+        //TODO orElse() 사용
         Optional<User> findById = userRepository.findById(dto.getId());
-        User editUser = dto.toEditEntity(findById.get());
-        userRepository.save(editUser).getId();
+        if (findById.isPresent()) {
+            User editUser = dto.toEditEntity(findById.get());
+        }
+        User updatedUser = userRepository.save(editUser);
     }
 
     public void delete(Integer id) {
         userRepository.deleteById(id);
     }
 
-    public String emailCheck(String email) {
+    public boolean emailCheck(String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isPresent()) {
-            return "ok";
-        } else {
-            return "no";
-        }
+        return optionalUser.isPresent();
     }
 }
