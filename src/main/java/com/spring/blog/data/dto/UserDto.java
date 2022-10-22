@@ -16,7 +16,6 @@ public class UserDto {
     private Integer id;
     private String email;
     private String password;
-
     private String name;
     //테스트 코드 작성
     public UserDto(String email, String password) {
