@@ -6,6 +6,7 @@ import com.spring.blog.data.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public List<PostDto> findAllPostList() {
+    public List<PostDto> findAllPostList(Pageable pageable) {
         List<Post> postList = postRepository.findAll();
         List<PostDto> postDtoList = new ArrayList<>();
         for (Post post : postList) {

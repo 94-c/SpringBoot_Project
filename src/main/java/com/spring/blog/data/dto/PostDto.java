@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@Builder
 public class PostDto {
 
     //TODO Dto와 Mapper 분리, 매퍼스트럭처 사용해서 클래스하고 비교
@@ -25,7 +26,6 @@ public class PostDto {
         this.body = body;
     }
 
-    @Builder
     public Post toCreateEntity() {
         User user = new User();
         user.setId(userId);
@@ -38,7 +38,6 @@ public class PostDto {
         return post;
     }
 
-    @Builder
     public Post toEditEntity(Post post) {
         User user = new User();
         user.setId(userId);
